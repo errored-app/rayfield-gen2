@@ -106,7 +106,7 @@ jobs:
           set -euo pipefail
           {
             printf -- '-- Rayfield Gen2 v%s\n' "$VERSION"
-            printf -- '-- loadstring(game:HttpGet("https://sirius.menu/gen2"))()\n'
+            printf -- '-- loadstring(game:HttpGet("https://github.com/%s/releases/latest/download/bundled.luau"))()\n' "$GITHUB_REPOSITORY"
             printf -- '--\n'
             printf -- '-- Copyright (c) 2026 Corridon Capital\n'
             printf -- '-- This Source Code Form is subject to the terms of the Mozilla Public\n'
@@ -176,7 +176,7 @@ jobs:
           else
             {
               printf 'The `%s` release of Rayfield Gen2.\n\n' "$RELEASE_TAG"
-              printf '    local Rayfield = loadstring(game:HttpGet("https://sirius.menu/gen2"))()\n\n'
+              printf '    local Rayfield = loadstring(game:HttpGet("https://github.com/%s/releases/latest/download/bundled.luau"))()\n\n' "$GITHUB_REPOSITORY"
               printf 'Docs: https://docs.sirius.menu/rayfield-gen2\n'
             } > release-notes.md
             # tag the exact commit that was built, not wherever main is by now

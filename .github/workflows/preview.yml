@@ -4,8 +4,8 @@ permissions: {}
 
 # dev is the preview branch, so every green commit on it becomes the preview
 # build. Nothing here can reach the stable URL: the release below is published
-# as a prerelease, and GitHub's `releases/latest` - which is what sirius.menu/gen2
-# reads - is defined as the newest release that is NOT a prerelease.
+# as a prerelease, and GitHub's `releases/latest` is defined as the newest
+# release that is NOT a prerelease.
 on:
   push:
     branches: [dev]
@@ -59,7 +59,7 @@ jobs:
           SHORT="$(git rev-parse --short "$COMMIT")"
           {
             printf -- '-- Rayfield Gen2 v%s-preview (%s, %s)\n' "$VERSION" "$SHORT" "$(date -u +%Y-%m-%d)"
-            printf -- '-- loadstring(game:HttpGet("https://sirius.menu/gen2-preview"))()\n'
+            printf -- '-- loadstring(game:HttpGet("https://github.com/%s/releases/download/preview/bundled.luau"))()\n' "$GITHUB_REPOSITORY"
             printf -- '--\n'
             printf -- '-- Copyright (c) 2026 Corridon Capital\n'
             printf -- '-- This Source Code Form is subject to the terms of the Mozilla Public\n'
@@ -93,7 +93,7 @@ jobs:
 
           {
             printf 'Rolling preview build of Rayfield Gen2, cut from `dev`.\n\n'
-            printf '    local Rayfield = loadstring(game:HttpGet("https://sirius.menu/gen2-preview"))()\n\n'
+            printf '    local Rayfield = loadstring(game:HttpGet("https://github.com/%s/releases/download/preview/bundled.luau"))()\n\n' "$GITHUB_REPOSITORY"
             printf 'Built from `%s`, on the way to v%s. This tag moves with every green commit on dev and is not a supported release - use the stable loadstring for anything you ship.\n\n' "$SHORT" "$VERSION"
             printf 'Docs: https://docs.sirius.menu/rayfield-gen2\n'
           } > preview-notes.md
